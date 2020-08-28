@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { GARDEN_WIDTH } from "./constants";
+import { COLORS } from "./constants";
 
 const GlobalStyles = createGlobalStyle`
 
@@ -53,10 +53,15 @@ table {
 }
 /* ------------ END OF CSS RESET ------------ */
 
+body {
+	font-family: 'Cuprum', sans-serif;
+	background-color: ${COLORS.light_mint};
+
+}
+
 h1 {
-    font-family: 'Cabin Sketch', cursive;
-    font-size: 2em;
-    color: darkgreen;
+	font-family: 'Lobster Two', cursive;
+	font-size: 2em;
 }
 `;
 

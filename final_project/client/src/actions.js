@@ -16,13 +16,14 @@ export const receiveAllPlants = (data) => ({
   plants: data,
 });
 
-export const createMyGarden = (tile) => ({
+export const createMyGarden = (tileObj) => ({
   type: "CREATE-MY-GARDEN",
-  tile: tile,
+  tileObj: tileObj,
 });
 
-export const setDiggingSpot = (x, y) => ({
-  type: "SET-DIGGING-SPOT",
-  x: x,
-  y: y,
+export const updateGardenTile = (plantObj, index, tilesArray) => ({
+  type: "UPDATE-GARDEN-TILE",
+  plantObj: plantObj,
+  index: index,
+  tilesArray: tilesArray,
 });

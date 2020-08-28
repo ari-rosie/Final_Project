@@ -23,28 +23,20 @@ for (let i = 0; i < row_tiles; i++) row.push(i);
 const Garden = () => {
   const dispatch = useDispatch();
   const { garden, diggingSpot } = useSelector((state) => state.gardenReducer);
+  let tileIndex = 0;
 
+  console.log(garden);
   useEffect(() => {
     for (const r in row)
       for (const c in col) {
         let tileObj = {
-          id: `${r}-${c}`,
+          _id: `${r}-${c}`,
           planted: false,
+          spacing: false,
         };
         dispatch(createMyGarden(tileObj));
       }
   }, []);
-
-  const getTile = (r, c) => {
-    const tile = garden.find((tile) => tile.id === `${r}-${c}`);
-    return tile;
-  };
-
-  useEffect(() => {
-    console.log(diggingSpot);
-    if (diggingSpot)
-      console.log(document.elementsFromPoint(diggingSpot.x, diggingSpot.y));
-  }, [diggingSpot]);
 
   return (
     <Wrapper>
@@ -57,8 +49,8 @@ const Garden = () => {
                 return (
                   <GardenTile
                     key={`garden-tile-${r}-${c}`}
-                    tileObj={garden.length > 0 ? getTile(r, c) : null}
                     tileId={`${r}-${c}`}
+                    index={tileIndex++}
                   />
                 );
               })}
@@ -72,19 +64,17 @@ const Garden = () => {
 
 const Wrapper = styled.div`
   overflow: scroll;
+  margin-top: 20%;
+
+  h1 {
+    color: #228b22;
+    margin-bottom: 15px;
+  }
 `;
 
 const StyledRow = styled.div`
   width: ${GARDEN_WRAPPER_WIDTH}px;
   display: flex;
-`;
-
-const StyledCol = styled.div`
-  border: 1px brown dashed;
-  width: ${GARDEN_TILE_SIZE}px;
-  height: ${GARDEN_TILE_SIZE}px;
-  background-color: ${(props) =>
-    props.tileObj && !props.tileObj.planted ? "black" : "white"};
 `;
 
 export default Garden;
