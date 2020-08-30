@@ -13,7 +13,10 @@ const LogOut = () => {
 
   return (
     <>
-      <UnstyledButton onClick={() => handleLogOut()}>Log out</UnstyledButton>
+      <UnstyledButton onClick={() => handleLogOut()}>
+        Log out
+        <img src={require("../../assets/sunflower_PNG13389.png")} />
+      </UnstyledButton>
     </>
   );
 };

@@ -1,6 +1,7 @@
 const initialState = {
   status: "idle",
   plants: {},
+  plantTarget: {},
 };
 
 export default function plantsReducer(state = initialState, action) {
@@ -15,6 +16,12 @@ export default function plantsReducer(state = initialState, action) {
         ...state,
         status: "ready",
         plants: action.plants,
+      };
+    case "SET-PLANT-ON-DRAG":
+      console.log(action.plantObj);
+      return {
+        ...state,
+        plantTarget: action.plantObj,
       };
     default: {
       return state;

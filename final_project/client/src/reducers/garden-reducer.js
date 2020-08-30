@@ -1,6 +1,8 @@
 const initialState = {
   status: "idle",
   garden: [],
+  summary: [],
+  target: [],
 };
 
 export default function gardenReducer(state = initialState, action) {
@@ -12,9 +14,9 @@ export default function gardenReducer(state = initialState, action) {
         garden: [...state.garden, action.tileObj],
       };
     case "UPDATE-GARDEN-TILE":
-      console.log(action.tilesArray);
       let overlapping = false;
       let newGarden = [...state.garden];
+      let newSummary = [...state.summary];
 
       action.tilesArray.forEach((tile) => {
         if (newGarden[tile].planted) {
@@ -29,6 +31,7 @@ export default function gardenReducer(state = initialState, action) {
               plant: action.plantObj,
             };
           } else {
+            newSummary.push(action.plantObj.id);
             newGarden[action.index] = {
               ...newGarden[action.index],
               planted: true,
@@ -41,8 +44,14 @@ export default function gardenReducer(state = initialState, action) {
         return {
           ...state,
           garden: newGarden,
+          summary: newSummary,
         };
       } else return { ...state };
+    case "TARGET-GARDEN-TILES":
+      return {
+        ...state,
+        target: action.target,
+      };
     default: {
       return state;
     }

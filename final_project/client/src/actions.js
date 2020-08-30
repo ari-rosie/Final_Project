@@ -27,3 +27,27 @@ export const updateGardenTile = (plantObj, index, tilesArray) => ({
   index: index,
   tilesArray: tilesArray,
 });
+
+export const togglePlantsMenuContent = () => ({
+  type: "TOGGLE-PLANTS-MENU-CONTENT",
+});
+
+export const toggleSummaryMenuContent = () => ({
+  type: "TOGGLE-SUMMARY-MENU-CONTENT",
+});
+
+export const toggleModalShowing = (content, contentType) => ({
+  type: "TOGGLE-MODAL-SHOWING",
+  content: content,
+  contentType: contentType,
+});
+
+export const targetGardenTiles = (target) => ({
+  type: "TARGET-GARDEN-TILES",
+  target: target,
+});
+
+export const setPlantOnDrag = (plantObj) => ({
+  type: "SET-PLANT-ON-DRAG",
+  plantObj: plantObj,
+});

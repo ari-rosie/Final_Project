@@ -63,6 +63,10 @@ h1 {
 	font-family: 'Lobster Two', cursive;
 	font-size: 2em;
 }
+
+h2 {
+	font-family: 'Lobster Two', cursive;
+}
 `;
 
 export default GlobalStyles;

@@ -7,6 +7,7 @@ import {
   GARDEN_HEIGHT,
   GARDEN_WIDTH,
   GARDEN_WRAPPER_WIDTH,
+  COLORS,
 } from "../../constants";
 import { createMyGarden } from "../../actions";
 import GardenTile from "./GardenTile";
@@ -67,7 +68,7 @@ const Wrapper = styled.div`
   margin-top: 20%;
 
   h1 {
-    color: #228b22;
+    color: ${COLORS.title_green};
     margin-bottom: 15px;
   }
 `;

@@ -1,4 +1,8 @@
-import { TILE_SIZE_REPRESENTATION } from "./constants";
+import {
+  TILE_SIZE_REPRESENTATION,
+  GARDEN_HEIGHT,
+  GARDEN_WIDTH,
+} from "./constants";
 
 export const getNumberFromString = (string) => {
   let number = string.match(/(\d+)/);
@@ -13,15 +17,24 @@ export const getTilesSpace = (spacing) => {
 export const getSpacingTilesArray = (spacingTiles, plantCenterIndex) => {
   const array = [];
 
-  let index = plantCenterIndex - 100 * spacingTiles - spacingTiles;
+  let index =
+    plantCenterIndex -
+    (GARDEN_WIDTH / TILE_SIZE_REPRESENTATION) * spacingTiles -
+    spacingTiles;
   for (let i = 0; i < spacingTiles * 2 + 1; i++) {
-    if (index >= 0) {
-      for (let j = 0; j < spacingTiles * 2 + 1; j++) {
-        array.push(index++);
+    if (
+      index <
+      (GARDEN_HEIGHT / TILE_SIZE_REPRESENTATION) *
+        (GARDEN_WIDTH / TILE_SIZE_REPRESENTATION)
+    ) {
+      if (index >= 0) {
+        for (let j = 0; j < spacingTiles * 2 + 1; j++) {
+          array.push(index++);
+        }
+        index -= spacingTiles * 2 + 1;
       }
-      index -= spacingTiles * 2 + 1;
+      index += GARDEN_WIDTH / TILE_SIZE_REPRESENTATION;
     }
-    index += 100;
   }
   return array;
 };
