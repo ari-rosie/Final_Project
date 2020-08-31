@@ -19,11 +19,11 @@ const Header = () => {
       <NavBar>
         <LogOut />
         <UnstyledButton onClick={() => dispatch(togglePlantsMenuContent())}>
-          Vegetables
+          PLANT NURSERY
           <img src={require("../../assets/sunflower_PNG13389.png")} />
         </UnstyledButton>
         <UnstyledButton onClick={() => dispatch(toggleSummaryMenuContent())}>
-          My plants summary
+          MY GARDEN SUMMARY
           <img src={require("../../assets/sunflower_PNG13389.png")} />
         </UnstyledButton>
       </NavBar>

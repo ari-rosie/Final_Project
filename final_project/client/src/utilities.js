@@ -14,8 +14,9 @@ export const getTilesSpace = (spacing) => {
   return Math.round(spacing / TILE_SIZE_REPRESENTATION);
 };
 
-export const getSpacingTilesArray = (spacingTiles, plantCenterIndex) => {
+export const getSpacingTilesArray = (string, plantCenterIndex) => {
   const array = [];
+  const spacingTiles = getTilesSpace(getNumberFromString(string));
 
   let index =
     plantCenterIndex -
@@ -37,4 +38,8 @@ export const getSpacingTilesArray = (spacingTiles, plantCenterIndex) => {
     }
   }
   return array;
+};
+
+export const getPlantObjById = (id, array) => {
+  return array.find((plant) => plant.id === id);
 };

@@ -2,6 +2,7 @@ const initialState = {
   isShowing: false,
   content: {},
   contentType: null,
+  extraContent: null,
 };
 
 export default function modalReducer(state = initialState, action) {
@@ -12,6 +13,12 @@ export default function modalReducer(state = initialState, action) {
         isShowing: !state.isShowing,
         content: action.content,
         contentType: action.contentType,
+        extraContent: null,
+      };
+    case "ADD-EXTRA-CONTENT":
+      return {
+        ...state,
+        extraContent: action.contentDiv,
       };
     default: {
       return state;

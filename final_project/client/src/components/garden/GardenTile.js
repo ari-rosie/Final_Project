@@ -1,30 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { Icon } from "react-icons-kit";
+import { u1F33E } from "react-icons-kit/noto_emoji_regular/u1F33E";
+import { squirrel } from "react-icons-kit/oct/squirrel";
+import { u1F34E } from "react-icons-kit/noto_emoji_regular/u1F34E";
 
 import { GARDEN_TILE_SIZE, COLORS } from "../../constants";
-import { updateGardenTile, targetGardenTiles } from "../../actions";
 import {
-  getTilesSpace,
-  getNumberFromString,
-  getSpacingTilesArray,
-} from "../../utilities";
+  updateGardenTile,
+  targetGardenTiles,
+  toggleModalShowing,
+  deleteGardenTiles,
+  addExtraContent,
+} from "../../actions";
+import { getSpacingTilesArray, getPlantObjById } from "../../utilities";
+import UnstyledButton from "../UnstyledButton";
 
 const GardenTile = ({ index }) => {
   const dispatch = useDispatch();
-  const { garden, status, target, targetAvailable } = useSelector(
+  const { garden, status, target } = useSelector(
     (state) => state.gardenReducer
   );
-  const { plantTarget } = useSelector((state) => state.plantsReducer);
+  const { plantTarget, plants } = useSelector((state) => state.plantsReducer);
+
+  const handleDeletePlant = () => {
+    const tilesArray = getSpacingTilesArray(plantTarget.spacing, index);
+    dispatch(deleteGardenTiles(index, tilesArray));
+    dispatch(toggleModalShowing({}, ""));
+  };
 
   const handleDrop = (e) => {
     if (!garden[index].planted && !garden[index].spacing) {
       e.preventDefault();
 
       const plantObj = JSON.parse(e.dataTransfer.getData("plantObj"));
-
-      const tileSpace = getTilesSpace(getNumberFromString(plantObj.spacing));
-      const tilesArray = getSpacingTilesArray(tileSpace, index);
+      const tilesArray = getSpacingTilesArray(plantObj.spacing, index);
       dispatch(updateGardenTile(plantObj, index, tilesArray));
     }
     dispatch(targetGardenTiles([]));
@@ -35,14 +46,11 @@ const GardenTile = ({ index }) => {
   };
 
   const handleDragEnter = (e) => {
-    const tileSpace = getTilesSpace(getNumberFromString(plantTarget.spacing));
-    const tilesArray = getSpacingTilesArray(tileSpace, index);
-
+    const tilesArray = getSpacingTilesArray(plantTarget.spacing, index);
     dispatch(targetGardenTiles(tilesArray));
   };
 
   const handleDragLeave = (e) => {};
-
   return (
     <>
       {status === "ready" && (
@@ -59,7 +67,53 @@ const GardenTile = ({ index }) => {
           spacing={garden[index].spacing}
           target={target.includes(index) ? true : false}
           image={garden[index].plant ? `url(${garden[index].plant.img})` : null}
-        />
+          onClick={() => {
+            if (garden[index].planted) {
+              dispatch(
+                toggleModalShowing(
+                  <ModalWrapper>
+                    <BtnDiv>
+                      <UnstyledButton onClick={() => handleDeletePlant()}>
+                        <Icon icon={squirrel} /> delete this plant.
+                      </UnstyledButton>
+                      <UnstyledButton
+                        onClick={() =>
+                          dispatch(
+                            addExtraContent(
+                              getPlantObjById(
+                                garden[index].plant.id,
+                                JSON.parse(plants)
+                              ).when_to_plant
+                            )
+                          )
+                        }
+                      >
+                        <Icon icon={u1F33E} /> WHEN TO PLANT.
+                      </UnstyledButton>
+                      <UnstyledButton
+                        onClick={() =>
+                          dispatch(
+                            addExtraContent(
+                              getPlantObjById(
+                                garden[index].plant.id,
+                                JSON.parse(plants)
+                              ).harvesting
+                            )
+                          )
+                        }
+                      >
+                        <Icon icon={u1F34E} /> WHEN TO HARVEST.
+                      </UnstyledButton>
+                    </BtnDiv>
+                  </ModalWrapper>,
+                  garden[index].plant.name
+                )
+              );
+            }
+          }}
+        >
+          {garden[index].spacing && <Icon icon={u1F33E} size={20} />}
+        </StyledCol>
       )}
     </>
   );
@@ -74,12 +128,20 @@ const StyledCol = styled.div`
   height: ${GARDEN_TILE_SIZE}px;
   overflow: hidden;
   background-color: ${(props) =>
-    (props.target && COLORS.light_mint) ||
+    (props.target && COLORS.title_green) ||
     (props.spacing && COLORS.tomato) ||
     "#FFF5EE"};
   background-image: ${(props) => (props.planted ? props.image : "none")};
+  border-radius: ${(props) => (props.planted ? "4px" : "0px")};
   background-size: cover;
   transform: ${(props) => (props.planted ? "scale(3)" : "none")};
+  color: whitesmoke;
+`;
+
+const ModalWrapper = styled.div``;
+
+const BtnDiv = styled.div`
+  border-right: 2px solid ${COLORS.title_green};
 `;
 
 export default GardenTile;

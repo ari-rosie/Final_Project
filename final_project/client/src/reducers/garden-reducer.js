@@ -6,6 +6,9 @@ const initialState = {
 };
 
 export default function gardenReducer(state = initialState, action) {
+  let newGarden = [...state.garden];
+  let newSummary = [...state.summary];
+
   switch (action.type) {
     case "CREATE-MY-GARDEN":
       return {
@@ -15,8 +18,6 @@ export default function gardenReducer(state = initialState, action) {
       };
     case "UPDATE-GARDEN-TILE":
       let overlapping = false;
-      let newGarden = [...state.garden];
-      let newSummary = [...state.summary];
 
       action.tilesArray.forEach((tile) => {
         if (newGarden[tile].planted) {
@@ -31,7 +32,18 @@ export default function gardenReducer(state = initialState, action) {
               plant: action.plantObj,
             };
           } else {
-            newSummary.push(action.plantObj.id);
+            if (!newSummary.find((ele) => ele.id === action.plantObj.id)) {
+              newSummary.push({
+                id: action.plantObj.id,
+                quantity: 1,
+              });
+            } else {
+              newSummary = newSummary.map((ele) =>
+                ele.id === action.plantObj.id
+                  ? { ...ele, quantity: ele.quantity + 1 }
+                  : ele
+              );
+            }
             newGarden[action.index] = {
               ...newGarden[action.index],
               planted: true,
@@ -47,6 +59,33 @@ export default function gardenReducer(state = initialState, action) {
           summary: newSummary,
         };
       } else return { ...state };
+    case "DELETE-GARDEN-TILES":
+      action.tilesArray.forEach((tile) => {
+        if (tile === action.index) {
+          newSummary.forEach((plant) => {
+            if (state.garden[tile].plant.id === plant.id) {
+              if (plant.quantity > 1) {
+                newSummary[newSummary.indexOf(plant)] = {
+                  ...plant,
+                  quantity: plant.quantity - 1,
+                };
+              } else {
+                newSummary.splice(newSummary.indexOf(plant), 1);
+              }
+            }
+          });
+        }
+        newGarden[tile] = {
+          _id: state.garden[tile]._id,
+          spacing: false,
+          planted: false,
+        };
+      });
+      return {
+        ...state,
+        garden: newGarden,
+        summary: newSummary,
+      };
     case "TARGET-GARDEN-TILES":
       return {
         ...state,

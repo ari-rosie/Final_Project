@@ -28,6 +28,12 @@ export const updateGardenTile = (plantObj, index, tilesArray) => ({
   tilesArray: tilesArray,
 });
 
+export const deleteGardenTiles = (index, tilesArray) => ({
+  type: "DELETE-GARDEN-TILES",
+  index: index,
+  tilesArray: tilesArray,
+});
+
 export const togglePlantsMenuContent = () => ({
   type: "TOGGLE-PLANTS-MENU-CONTENT",
 });
@@ -50,4 +56,9 @@ export const targetGardenTiles = (target) => ({
 export const setPlantOnDrag = (plantObj) => ({
   type: "SET-PLANT-ON-DRAG",
   plantObj: plantObj,
+});
+
+export const addExtraContent = (contentDiv) => ({
+  type: "ADD-EXTRA-CONTENT",
+  contentDiv: contentDiv,
 });
