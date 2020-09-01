@@ -23,9 +23,17 @@ const GardenTile = ({ index }) => {
     (state) => state.gardenReducer
   );
   const { plantTarget, plants } = useSelector((state) => state.plantsReducer);
+  const { GARDEN_WIDTH, GARDEN_HEIGHT } = useSelector(
+    (state) => state.userReducer
+  );
 
   const handleDeletePlant = () => {
-    const tilesArray = getSpacingTilesArray(plantTarget.spacing, index);
+    const tilesArray = getSpacingTilesArray(
+      plantTarget.spacing,
+      index,
+      GARDEN_WIDTH,
+      GARDEN_HEIGHT
+    );
     dispatch(deleteGardenTiles(index, tilesArray));
     dispatch(toggleModalShowing({}, ""));
   };
@@ -35,7 +43,12 @@ const GardenTile = ({ index }) => {
       e.preventDefault();
 
       const plantObj = JSON.parse(e.dataTransfer.getData("plantObj"));
-      const tilesArray = getSpacingTilesArray(plantObj.spacing, index);
+      const tilesArray = getSpacingTilesArray(
+        plantObj.spacing,
+        index,
+        GARDEN_WIDTH,
+        GARDEN_HEIGHT
+      );
       dispatch(updateGardenTile(plantObj, index, tilesArray));
     }
     dispatch(targetGardenTiles([]));
@@ -46,7 +59,12 @@ const GardenTile = ({ index }) => {
   };
 
   const handleDragEnter = (e) => {
-    const tilesArray = getSpacingTilesArray(plantTarget.spacing, index);
+    const tilesArray = getSpacingTilesArray(
+      plantTarget.spacing,
+      index,
+      GARDEN_WIDTH,
+      GARDEN_HEIGHT
+    );
     dispatch(targetGardenTiles(tilesArray));
   };
 

@@ -62,3 +62,13 @@ export const addExtraContent = (contentDiv) => ({
   type: "ADD-EXTRA-CONTENT",
   contentDiv: contentDiv,
 });
+
+export const setGardenStatus = (status) => ({
+  type: "SET-GARDEN-STATUS",
+  status: status,
+});
+
+export const copyGardenFromDb = (garden) => ({
+  type: "COPY-GARDEN-FROM-DB",
+  garden: garden,
+});

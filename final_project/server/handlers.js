@@ -60,4 +60,31 @@ const handleEdiblePlants = async (req, res) => {
   }
 };
 
-module.exports = { handleNewUser, handleGetAccount, handleEdiblePlants };
+const handleUpdateGarden = async (req, res) => {
+  const { newGarden, email } = req.body;
+
+  try {
+    const client = await MongoClient(MONGO_URI, options);
+    await client.connect();
+    const db = client.db("Final_Project");
+
+    const setGarden = await db
+      .collection("users")
+      .updateOne({ email: email }, { $set: { garden: newGarden } });
+    assert.equal(1, setGarden.matchedCount);
+    assert.equal(1, setGarden.modifiedCount);
+
+    return res.status(201).json({
+      status: 201,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = {
+  handleNewUser,
+  handleGetAccount,
+  handleEdiblePlants,
+  handleUpdateGarden,
+};

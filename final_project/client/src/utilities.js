@@ -14,7 +14,13 @@ export const getTilesSpace = (spacing) => {
   return Math.round(spacing / TILE_SIZE_REPRESENTATION);
 };
 
-export const getSpacingTilesArray = (string, plantCenterIndex) => {
+export const getSpacingTilesArray = (
+  string,
+  plantCenterIndex,
+  GARDEN_WIDTH,
+  GARDEN_HEIGHT
+) => {
+  console.log(GARDEN_WIDTH + " " + GARDEN_HEIGHT);
   const array = [];
   const spacingTiles = getTilesSpace(getNumberFromString(string));
 
@@ -31,6 +37,7 @@ export const getSpacingTilesArray = (string, plantCenterIndex) => {
       if (index >= 0) {
         for (let j = 0; j < spacingTiles * 2 + 1; j++) {
           array.push(index++);
+          console.log(index);
         }
         index -= spacingTiles * 2 + 1;
       }

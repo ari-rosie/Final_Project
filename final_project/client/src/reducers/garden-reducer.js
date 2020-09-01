@@ -13,8 +13,18 @@ export default function gardenReducer(state = initialState, action) {
     case "CREATE-MY-GARDEN":
       return {
         ...state,
-        status: "ready",
         garden: [...state.garden, action.tileObj],
+      };
+    case "SET-GARDEN-STATUS":
+      return {
+        ...state,
+        status: action.status,
+      };
+    case "COPY-GARDEN-FROM-DB":
+      return {
+        ...state,
+        garden: action.garden,
+        status: "ready",
       };
     case "UPDATE-GARDEN-TILE":
       let overlapping = false;

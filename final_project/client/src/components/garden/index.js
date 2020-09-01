@@ -4,59 +4,79 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   GARDEN_TILE_SIZE,
-  GARDEN_HEIGHT,
-  GARDEN_WIDTH,
-  GARDEN_WRAPPER_WIDTH,
   COLORS,
+  TILE_SIZE_REPRESENTATION,
 } from "../../constants";
-import { createMyGarden } from "../../actions";
+import {
+  createMyGarden,
+  setGardenStatus,
+  copyGardenFromDb,
+} from "../../actions";
 import GardenTile from "./GardenTile";
-
-const col_tiles = GARDEN_WIDTH / 2;
-const row_tiles = GARDEN_HEIGHT / 2;
 
 let col = [];
 let row = [];
 
-for (let i = 0; i < col_tiles; i++) col.push(i);
-for (let i = 0; i < row_tiles; i++) row.push(i);
-
 const Garden = () => {
   const dispatch = useDispatch();
-  const { garden } = useSelector((state) => state.gardenReducer);
-  let tileIndex = 0;
+  const { status } = useSelector((state) => state.gardenReducer);
+  const { GARDEN_HEIGHT, GARDEN_WIDTH, userGarden } = useSelector(
+    (state) => state.userReducer
+  );
 
   useEffect(() => {
-    for (const r in row)
-      for (const c in col) {
-        let tileObj = {
-          _id: `${r}-${c}`,
-          planted: false,
-          spacing: false,
-        };
-        dispatch(createMyGarden(tileObj));
-      }
-  }, []);
+    const col_tiles = GARDEN_WIDTH / TILE_SIZE_REPRESENTATION;
+    const row_tiles = GARDEN_HEIGHT / TILE_SIZE_REPRESENTATION;
 
+    for (let i = 0; i < col_tiles; i++) col.push(i);
+    for (let i = 0; i < row_tiles; i++) row.push(i);
+
+    if (!userGarden || userGarden.length < 1) {
+      console.log("NO DATA");
+      for (const r in row)
+        for (const c in col) {
+          let tileObj = {
+            _id: `${r}-${c}`,
+            planted: false,
+            spacing: false,
+          };
+          dispatch(createMyGarden(tileObj));
+        }
+      dispatch(setGardenStatus("ready"));
+    } else {
+      console.log("USERDATA");
+      dispatch(copyGardenFromDb(userGarden));
+    }
+  }, []);
+  let tileIndex = -1;
+  console.log("col", col.length, row.length, col.length * row.length);
   return (
     <Wrapper>
-      <GardenContainer>
-        {row.map((r) => {
-          return (
-            <StyledRow key={`garden-row-${r}`}>
-              {col.map((c) => {
-                return (
-                  <GardenTile
-                    key={`garden-tile-${r}-${c}`}
-                    tileId={`${r}-${c}`}
-                    index={tileIndex++}
-                  />
-                );
-              })}
-            </StyledRow>
-          );
-        })}
-      </GardenContainer>
+      {status === "ready" && (
+        <GardenContainer>
+          {row.map((r) => {
+            return (
+              <StyledRow
+                key={`garden-row-${r}`}
+                width={
+                  (GARDEN_WIDTH / TILE_SIZE_REPRESENTATION) * GARDEN_TILE_SIZE
+                }
+              >
+                {col.map((c) => {
+                  tileIndex++;
+                  return (
+                    <GardenTile
+                      key={`garden-tile-${r}-${c}`}
+                      tileId={`${r}-${c}`}
+                      index={tileIndex}
+                    />
+                  );
+                })}
+              </StyledRow>
+            );
+          })}
+        </GardenContainer>
+      )}
     </Wrapper>
   );
 };
@@ -88,7 +108,7 @@ const Wrapper = styled.div`
 `;
 
 const StyledRow = styled.div`
-  width: ${GARDEN_WRAPPER_WIDTH}px;
+  width: ${(props) => props.width}px;
   display: flex;
 `;
 

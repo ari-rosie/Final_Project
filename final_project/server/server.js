@@ -8,6 +8,7 @@ const {
   handleNewUser,
   handleGetAccount,
   handleEdiblePlants,
+  handleUpdateGarden,
 } = require("./handlers");
 
 const PORT = 4000;
@@ -24,12 +25,19 @@ express()
 
   .use(morgan("dev"))
   .use(express.static("public"))
-  .use(bodyParser.json())
-  .use(express.urlencoded({ extended: false }))
+  .use(bodyParser.json({ limit: "50mb" }))
+  .use(
+    bodyParser.urlencoded({
+      limit: "50mb",
+      extended: true,
+      parameterLimit: 50000,
+    })
+  )
   .use("/", express.static(__dirname + "/"))
 
   .get("/users/account/:email", handleGetAccount)
   .post("/users/new", handleNewUser)
+  .put("/user/update-garden", handleUpdateGarden)
 
   //TREFLE API ENDPOINTS
   .get("/plants/all", handleEdiblePlants)

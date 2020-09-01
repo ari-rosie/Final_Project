@@ -4,8 +4,6 @@ import { Redirect } from "react-router";
 
 import Header from "../header";
 import Garden from "../garden";
-import MenuContent from "../header/MenuContent";
-import Nursery from "../nursery";
 
 const Account = () => {
   const { userData, loggedIn } = useSelector((state) => state.userReducer);
