@@ -130,7 +130,7 @@ const StyledCol = styled.div`
   background-color: ${(props) =>
     (props.target && COLORS.title_green) ||
     (props.spacing && COLORS.tomato) ||
-    "#FFF5EE"};
+    "none"};
   background-image: ${(props) => (props.planted ? props.image : "none")};
   border-radius: ${(props) => (props.planted ? "4px" : "0px")};
   background-size: cover;

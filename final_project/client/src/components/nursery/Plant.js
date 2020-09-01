@@ -60,12 +60,6 @@ const Wrapper = styled.div`
   p {
     background-color: ${COLORS.dark_teal};
     padding: 5px 0;
-    &:hover {
-      border-radius: 8px;
-    }
-  }
-  &:hover {
-    border-radius: 8px;
   }
   &:hover p {
     background-color: rgba(47, 79, 79, 0.5);

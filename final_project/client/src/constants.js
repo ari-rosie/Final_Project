@@ -11,4 +11,5 @@ export const COLORS = {
   dark_teal: "#2f4f4f",
   title_green: "#228b22",
   tomato: "#FF6347",
+  lilac: "#9370db",
 };

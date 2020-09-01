@@ -20,11 +20,11 @@ const Nursery = () => {
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 8,
+      items: 5,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 5,
+      items: 4,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
@@ -63,7 +63,7 @@ const Nursery = () => {
 };
 
 const Wrapper = styled.div`
-  margin-top: 20px;
+  margin-top: 50px;
   width: 100%;
   height: 200px;
   position: fixed;

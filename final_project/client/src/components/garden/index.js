@@ -23,10 +23,9 @@ for (let i = 0; i < row_tiles; i++) row.push(i);
 
 const Garden = () => {
   const dispatch = useDispatch();
-  const { garden, diggingSpot } = useSelector((state) => state.gardenReducer);
+  const { garden } = useSelector((state) => state.gardenReducer);
   let tileIndex = 0;
 
-  console.log(garden);
   useEffect(() => {
     for (const r in row)
       for (const c in col) {
@@ -41,8 +40,7 @@ const Garden = () => {
 
   return (
     <Wrapper>
-      <h1>My Garden</h1>
-      <div>
+      <GardenContainer>
         {row.map((r) => {
           return (
             <StyledRow key={`garden-row-${r}`}>
@@ -58,7 +56,7 @@ const Garden = () => {
             </StyledRow>
           );
         })}
-      </div>
+      </GardenContainer>
     </Wrapper>
   );
 };
@@ -66,10 +64,26 @@ const Garden = () => {
 const Wrapper = styled.div`
   overflow: scroll;
   margin-top: 20%;
+  background-image: url(${require("../../assets/black-soil-2.png")});
+  background-size: cover;
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 
-  h1 {
-    color: ${COLORS.title_green};
-    margin-bottom: 15px;
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
 `;
 
@@ -78,4 +92,5 @@ const StyledRow = styled.div`
   display: flex;
 `;
 
+const GardenContainer = styled.div``;
 export default Garden;
