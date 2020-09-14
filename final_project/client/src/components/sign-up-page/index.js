@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import styled from "styled-components";
 
-import { COLORS } from "../../constants";
+import { COLORS, TILE_SIZE_REPRESENTATION } from "../../constants";
 
 const SignUpPage = () => {
   const [username, setUsername] = useState(null);
@@ -16,14 +16,28 @@ const SignUpPage = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-
+    let gardenArr = [];
+    const gardenArrLength =
+      ((width * 100) / 2.54 / TILE_SIZE_REPRESENTATION) *
+      ((height * 100) / 2.54 / TILE_SIZE_REPRESENTATION);
+    for (let i = 0; i < gardenArrLength; i++)
+      gardenArr.push({
+        _id: i,
+        planted: false,
+        spacing: false,
+      });
     const bod = {
       newUser: {
+        _id: email,
         username: username,
         email: email,
         password: password,
         gardenWidth: width,
         gardenHeight: height,
+      },
+      newGarden: {
+        _id: email,
+        garden: gardenArr,
       },
     };
 

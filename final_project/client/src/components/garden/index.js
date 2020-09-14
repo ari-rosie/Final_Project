@@ -20,7 +20,7 @@ let row = [];
 const Garden = () => {
   const dispatch = useDispatch();
   const { status } = useSelector((state) => state.gardenReducer);
-  const { GARDEN_HEIGHT, GARDEN_WIDTH, userGarden } = useSelector(
+  const { GARDEN_HEIGHT, GARDEN_WIDTH } = useSelector(
     (state) => state.userReducer
   );
 
@@ -30,26 +30,9 @@ const Garden = () => {
 
     for (let i = 0; i < col_tiles; i++) col.push(i);
     for (let i = 0; i < row_tiles; i++) row.push(i);
-
-    if (!userGarden || userGarden.length < 1) {
-      console.log("NO DATA");
-      for (const r in row)
-        for (const c in col) {
-          let tileObj = {
-            _id: `${r}-${c}`,
-            planted: false,
-            spacing: false,
-          };
-          dispatch(createMyGarden(tileObj));
-        }
-      dispatch(setGardenStatus("ready"));
-    } else {
-      console.log("USERDATA");
-      dispatch(copyGardenFromDb(userGarden));
-    }
   }, []);
+
   let tileIndex = -1;
-  console.log("col", col.length, row.length, col.length * row.length);
   return (
     <Wrapper>
       {status === "ready" && (

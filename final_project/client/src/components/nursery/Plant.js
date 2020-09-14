@@ -47,8 +47,8 @@ const Plant = ({ name, image_url, spacing, id, description, draggable }) => {
 };
 
 const Wrapper = styled.div`
-  width: 200px;
-  height: 35px;
+  width: 150px;
+  height: 50px;
   background-image: url(${(props) => props.src});
   background-position: center;
   background-size: cover;
@@ -56,6 +56,9 @@ const Wrapper = styled.div`
   text-align: center;
   font-size: 0.8em;
   overflow: hidden;
+  @media (max-width: 768px) {
+    height: 30px;
+  }
 
   p {
     background-color: ${COLORS.dark_teal};

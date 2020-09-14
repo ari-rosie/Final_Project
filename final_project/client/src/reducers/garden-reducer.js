@@ -8,9 +8,11 @@ const initialState = {
 export default function gardenReducer(state = initialState, action) {
   let newGarden = [...state.garden];
   let newSummary = [...state.summary];
+  let i = 0;
 
   switch (action.type) {
     case "CREATE-MY-GARDEN":
+      console.log("create", i);
       return {
         ...state,
         garden: [...state.garden, action.tileObj],
@@ -21,6 +23,7 @@ export default function gardenReducer(state = initialState, action) {
         status: action.status,
       };
     case "COPY-GARDEN-FROM-DB":
+      console.log(action.garden);
       return {
         ...state,
         garden: action.garden,

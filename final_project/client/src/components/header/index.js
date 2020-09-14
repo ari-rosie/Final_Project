@@ -59,7 +59,10 @@ const NavBar = styled.div`
   border-top: solid ${COLORS.title_green} 1px;
   padding: 10px 100px 10px 20px;
   margin-top: 10px;
-
+  @media (max-width: 768px) {
+    width: 80%;
+    font-size: 0.5em;
+  }
   button {
     padding-left: 20px;
     outline: none;

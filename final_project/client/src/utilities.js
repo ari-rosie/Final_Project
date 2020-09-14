@@ -20,7 +20,6 @@ export const getSpacingTilesArray = (
   GARDEN_WIDTH,
   GARDEN_HEIGHT
 ) => {
-  console.log(GARDEN_WIDTH + " " + GARDEN_HEIGHT);
   const array = [];
   const spacingTiles = getTilesSpace(getNumberFromString(string));
 
@@ -37,7 +36,6 @@ export const getSpacingTilesArray = (
       if (index >= 0) {
         for (let j = 0; j < spacingTiles * 2 + 1; j++) {
           array.push(index++);
-          console.log(index);
         }
         index -= spacingTiles * 2 + 1;
       }
@@ -49,4 +47,14 @@ export const getSpacingTilesArray = (
 
 export const getPlantObjById = (id, array) => {
   return array.find((plant) => plant.id === id);
+};
+
+export const fetchGarden = async (email) => {
+  try {
+    const res = await fetch(`/users/garden/${email}`);
+    const account = await res.json();
+    return account;
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -26,7 +26,6 @@ const GardenTile = ({ index }) => {
   const { GARDEN_WIDTH, GARDEN_HEIGHT } = useSelector(
     (state) => state.userReducer
   );
-
   const handleDeletePlant = () => {
     const tilesArray = getSpacingTilesArray(
       plantTarget.spacing,
@@ -37,7 +36,6 @@ const GardenTile = ({ index }) => {
     dispatch(deleteGardenTiles(index, tilesArray));
     dispatch(toggleModalShowing({}, ""));
   };
-
   const handleDrop = (e) => {
     if (!garden[index].planted && !garden[index].spacing) {
       e.preventDefault();
@@ -71,11 +69,12 @@ const GardenTile = ({ index }) => {
   const handleDragLeave = (e) => {};
   return (
     <>
-      {status === "ready" && (
+      {garden[index] && (
         <StyledCol
           onDrop={(e) => handleDrop(e)}
           onDragOver={
-            !garden[index].planted && !garden[index].spacing
+            garden[index].planted === "false" &&
+            garden[index].spacing === "false"
               ? handleDragOver
               : null
           }
@@ -154,6 +153,7 @@ const StyledCol = styled.div`
   background-size: cover;
   transform: ${(props) => (props.planted ? "scale(3)" : "none")};
   color: whitesmoke;
+  opacity: ${(props) => (props.target ? "0.5" : "1")};
 `;
 
 const ModalWrapper = styled.div``;

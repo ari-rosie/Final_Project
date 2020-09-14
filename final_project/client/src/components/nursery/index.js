@@ -20,7 +20,7 @@ const Nursery = () => {
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 5,
+      items: 7,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -63,9 +63,10 @@ const Nursery = () => {
 };
 
 const Wrapper = styled.div`
-  margin-top: 50px;
+  margin-top: 60px;
+  margin-left: 20px;
   width: 100%;
-  height: 200px;
+  height: auto;
   position: fixed;
   left: 0;
 `;

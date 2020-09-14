@@ -30,7 +30,7 @@ const LogOut = () => {
       console.log(error);
     }
 
-    dispatch(logOutCurrentUser());
+    await dispatch(logOutCurrentUser());
   };
 
   return (

@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const {
   handleNewUser,
   handleGetAccount,
+  handleGetGarden,
   handleEdiblePlants,
   handleUpdateGarden,
 } = require("./handlers");
@@ -35,9 +36,10 @@ express()
   )
   .use("/", express.static(__dirname + "/"))
 
-  .get("/users/account/:email", handleGetAccount)
+  .post("/users/account/:email", handleGetAccount)
   .post("/users/new", handleNewUser)
   .put("/user/update-garden", handleUpdateGarden)
+  .get("/users/garden/:email", handleGetGarden)
 
   //TREFLE API ENDPOINTS
   .get("/plants/all", handleEdiblePlants)

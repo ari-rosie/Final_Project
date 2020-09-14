@@ -4,8 +4,9 @@ import { Redirect } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { setCurrentUser } from "../../actions";
+import { setCurrentUser, copyGardenFromDb } from "../../actions";
 import { COLORS } from "../../constants";
+import { fetchGarden } from "../../utilities";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -16,14 +17,26 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    const bod = {
+      username: username,
+      password: password,
+    };
+
+    const reqObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bod),
+    };
 
     try {
-      const res = await fetch(
-        `/users/account/${email}?username=${username}&password=${password}`
-      );
+      const res = await fetch(`/users/account/${email}`, reqObj);
       const account = await res.json();
-      if (account.status === 200) {
+      if (res.status === 201) {
+        const gardenData = await fetchGarden(email);
         dispatch(setCurrentUser(account.data));
+        dispatch(copyGardenFromDb(gardenData.data.garden));
       } else console.log(account.message);
     } catch (error) {
       console.log(error);
