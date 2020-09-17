@@ -94,11 +94,10 @@ const handleUpdateGarden = async (req, res) => {
     const db = client.db("Final_Project");
     console.log(newGarden);
     console.log("email .......", email);
-    // const setGarden = await db
-    //   .collection("users")
-    //   .updateOne({ email: email }, { $set: { garden: newGarden } });
-    // assert.equal(1, setGarden.matchedCount);
-    // assert.equal(1, setGarden.modifiedCount);
+    const setGarden = await db
+      .collection("gardens")
+      .updateOne({ _id: email }, { $set: { garden: newGarden } });
+    assert.equal(1, setGarden.matchedCount);
 
     return res.status(201).json({
       status: 201,

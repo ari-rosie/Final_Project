@@ -16,6 +16,7 @@ import GardenTile from "./GardenTile";
 
 let col = [];
 let row = [];
+let uniqueKey = 0;
 
 const Garden = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const Garden = () => {
           {row.map((r) => {
             return (
               <StyledRow
-                key={`garden-row-${r}`}
+                key={`garden-row-${uniqueKey++}`}
                 width={
                   (GARDEN_WIDTH / TILE_SIZE_REPRESENTATION) * GARDEN_TILE_SIZE
                 }
@@ -49,7 +50,7 @@ const Garden = () => {
                   tileIndex++;
                   return (
                     <GardenTile
-                      key={`garden-tile-${r}-${c}`}
+                      key={`garden-tile-${r}-${c}-${uniqueKey++}`}
                       tileId={`${r}-${c}`}
                       index={tileIndex}
                     />

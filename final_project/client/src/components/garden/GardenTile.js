@@ -37,7 +37,8 @@ const GardenTile = ({ index }) => {
     dispatch(toggleModalShowing({}, ""));
   };
   const handleDrop = (e) => {
-    if (!garden[index].planted && !garden[index].spacing) {
+    console.log("drop...............");
+    if (garden[index].planted == "false" && garden[index].spacing == "false") {
       e.preventDefault();
 
       const plantObj = JSON.parse(e.dataTransfer.getData("plantObj"));
@@ -47,6 +48,7 @@ const GardenTile = ({ index }) => {
         GARDEN_WIDTH,
         GARDEN_HEIGHT
       );
+
       dispatch(updateGardenTile(plantObj, index, tilesArray));
     }
     dispatch(targetGardenTiles([]));
@@ -54,9 +56,15 @@ const GardenTile = ({ index }) => {
 
   const handleDragOver = (e) => {
     e.preventDefault();
+    console.log("dragover.................");
   };
 
   const handleDragEnter = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    console.log("dragenter.................");
+
     const tilesArray = getSpacingTilesArray(
       plantTarget.spacing,
       index,
@@ -72,17 +80,16 @@ const GardenTile = ({ index }) => {
       {garden[index] && (
         <StyledCol
           onDrop={(e) => handleDrop(e)}
-          onDragOver={
-            garden[index].planted === "false" &&
-            garden[index].spacing === "false"
-              ? handleDragOver
+          onDragOver={(e) =>
+            garden[index].planted == "false" && garden[index].spacing == "false"
+              ? handleDragOver(e)
               : null
           }
-          onDragEnter={handleDragEnter}
-          onDragLeave={handleDragLeave}
-          planted={garden[index].planted}
-          spacing={garden[index].spacing}
-          target={target.includes(index) ? true : false}
+          // onDragEnter={(e) => handleDragEnter(e)}
+          // onDragLeave={handleDragLeave}
+          planted={garden[index].planted == "true" ? "true" : "false"}
+          spacing={garden[index].spacing == "true" ? "true" : "false"}
+          target={target.includes(index) ? "true" : "false"}
           image={garden[index].plant ? `url(${garden[index].plant.img})` : null}
           onClick={() => {
             if (garden[index].planted) {
@@ -129,7 +136,7 @@ const GardenTile = ({ index }) => {
             }
           }}
         >
-          {garden[index].spacing && <Icon icon={u1F33E} size={20} />}
+          {garden[index].spacing == "true" && <Icon icon={u1F33E} size={20} />}
         </StyledCol>
       )}
     </>
@@ -145,15 +152,16 @@ const StyledCol = styled.div`
   height: ${GARDEN_TILE_SIZE}px;
   overflow: hidden;
   background-color: ${(props) =>
-    (props.target && COLORS.title_green) ||
-    (props.spacing && COLORS.tomato) ||
+    (props.target === "true" && COLORS.title_green) ||
+    (props.spacing == "true" && COLORS.tomato) ||
     "none"};
-  background-image: ${(props) => (props.planted ? props.image : "none")};
-  border-radius: ${(props) => (props.planted ? "4px" : "0px")};
+  background-image: ${(props) =>
+    props.planted === "true" ? props.image : "none"};
+  border-radius: ${(props) => (props.planted === "true" ? "4px" : "0px")};
   background-size: cover;
-  transform: ${(props) => (props.planted ? "scale(3)" : "none")};
+  transform: ${(props) => (props.planted === "true" ? "scale(3)" : "none")};
   color: whitesmoke;
-  opacity: ${(props) => (props.target ? "0.5" : "1")};
+  opacity: ${(props) => (props.target === "true" ? "0.5" : "1")};
 `;
 
 const ModalWrapper = styled.div``;

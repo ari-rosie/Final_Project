@@ -61,7 +61,7 @@ body {
 	font-family: 'Cuprum', sans-serif;
 	background-color: ${COLORS.light_mint};
 
-	/* width */
+/* width */
 ::-webkit-scrollbar {
   width: 10px;
 }

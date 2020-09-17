@@ -23,8 +23,8 @@ const SignUpPage = () => {
     for (let i = 0; i < gardenArrLength; i++)
       gardenArr.push({
         _id: i,
-        planted: false,
-        spacing: false,
+        planted: "false",
+        spacing: "false",
       });
     const bod = {
       newUser: {

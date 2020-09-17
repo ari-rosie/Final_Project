@@ -33,7 +33,7 @@ export default function gardenReducer(state = initialState, action) {
       let overlapping = false;
 
       action.tilesArray.forEach((tile) => {
-        if (newGarden[tile].planted) {
+        if (newGarden[tile].planted == "true") {
           overlapping = true;
           return;
         }
@@ -41,7 +41,7 @@ export default function gardenReducer(state = initialState, action) {
           if (tile !== action.index) {
             newGarden[tile] = {
               ...newGarden[tile],
-              spacing: true,
+              spacing: "true",
               plant: action.plantObj,
             };
           } else {
@@ -59,7 +59,7 @@ export default function gardenReducer(state = initialState, action) {
             }
             newGarden[action.index] = {
               ...newGarden[action.index],
-              planted: true,
+              planted: "true",
               plant: action.plantObj,
             };
           }

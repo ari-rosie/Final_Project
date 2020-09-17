@@ -16,6 +16,7 @@ const Plant = ({ name, image_url, spacing, id, description, draggable }) => {
     id,
   };
   const handleDragStart = (e) => {
+    console.log("plant drag.........");
     e.dataTransfer.setData("plantObj", JSON.stringify(plantObj));
     dispatch(setPlantOnDrag(plantObj));
   };
