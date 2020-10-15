@@ -2,7 +2,7 @@
   "name": "final-project",
   "version": "1.0.0",
   "description": "<img src=\"final_project/client/public/readmeSignIn.png\">",
-  "main": "index.js",
+  "main": "final_project/server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
