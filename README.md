@@ -10,3 +10,5 @@ The app lets you drag plants into your garden. Each plant will occupy the space 
 You can find icons in different places that on click will provide appropriate informations ( sun needs, harvest times..).
 
 In order to avoid too many fetches to the server, I used Redux. The most challenging part of this app would have to be managing the grid of data.
+
+
