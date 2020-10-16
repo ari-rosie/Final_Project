@@ -4,8 +4,8 @@
   "description": "<img src=\"final_project/client/public/readmeSignIn.png\">",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd final_project && cd server && yarn install && yarn start"
+    "test": "echo \"Error: no test specified\" && exit 1"
+    // "heroku-postbuild": "cd final_project && cd server && yarn install && yarn start"
   },
   "repository": {
     "type": "git",
