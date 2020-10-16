@@ -45,4 +45,6 @@ express()
   .get("/plants/all", handleEdiblePlants)
 
   // .use((req, res) => res.send("Not Found"))
-  .listen(PORT, () => console.log(`Listening on port ${PORT}`));
+  .listen(process.env.PORT || PORT, () =>
+    console.log(`Listening on port ${PORT}`)
+  );
