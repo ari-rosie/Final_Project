@@ -2,9 +2,10 @@
   "name": "final-project",
   "version": "1.0.0",
   "description": "<img src=\"final_project/client/public/readmeSignIn.png\">",
-  "main": "final_project/server/server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "cd final_project && cd server && yarn install && yarn start"
   },
   "repository": {
     "type": "git",
