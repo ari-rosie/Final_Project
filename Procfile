@@ -1,1 +1,1 @@
-web: node final_project/server/server.js
+web: node server.js

@@ -1,19 +1,25 @@
 {
-  "name": "final-project",
+  "name": "server",
   "version": "1.0.0",
-  "description": "<img src=\"final_project/client/public/readmeSignIn.png\">",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ari-rosie/Final_Project.git"
-  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ari-rosie/Final_Project/issues"
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "file-system": "^2.2.2",
+    "mongodb": "^3.6.0",
+    "morgan": "^1.10.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "uuidv4": "^6.2.2"
   },
-  "homepage": "https://github.com/ari-rosie/Final_Project#readme"
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
