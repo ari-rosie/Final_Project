@@ -34,7 +34,7 @@ express()
       parameterLimit: 50000,
     })
   )
-  .use("/", express.static(__dirname + "/"))
+  .use("/", express.static(__dirname + "/client/public"))
 
   .post("/users/account/:email", handleGetAccount)
   .post("/users/new", handleNewUser)
