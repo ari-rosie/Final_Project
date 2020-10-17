@@ -34,13 +34,15 @@ express()
       parameterLimit: 50000,
     })
   )
-  .use("/", express.static(__dirname + "/client/public"))
+  .use("/", express.static(__dirname + "/"))
 
   .post("/users/account/:email", handleGetAccount)
   .post("/users/new", handleNewUser)
   .put("/user/update-garden", handleUpdateGarden)
   .get("/users/garden/:email", handleGetGarden)
-
+  .get("/", (req, res) => {
+    res.status(200).send("this works!");
+  })  
   //TREFLE API ENDPOINTS
   .get("/plants/all", handleEdiblePlants)
 
