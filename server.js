@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const path = require("path");
 
 const {
   handleNewUser,
@@ -34,14 +35,14 @@ express()
       parameterLimit: 50000,
     })
   )
-  .use("/", express.static(__dirname + "/"))
+  .use("/", express.static(path.join(__dirname, "build")))
 
   .post("/users/account/:email", handleGetAccount)
   .post("/users/new", handleNewUser)
   .put("/user/update-garden", handleUpdateGarden)
   .get("/users/garden/:email", handleGetGarden)
-  .get("/", (req, res) => {
-    res.status(200).send("this works!");
+  .get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
   })  
   //TREFLE API ENDPOINTS
   .get("/plants/all", handleEdiblePlants)
