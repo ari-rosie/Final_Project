@@ -41,11 +41,11 @@ express()
   .post("/users/new", handleNewUser)
   .put("/user/update-garden", handleUpdateGarden)
   .get("/users/garden/:email", handleGetGarden)
+  .get("/plants/all", handleEdiblePlants)
+
   .get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   })  
-  //TREFLE API ENDPOINTS
-  .get("/plants/all", handleEdiblePlants)
 
   // .use((req, res) => res.send("Not Found"))
   .listen(process.env.PORT || PORT, () =>
