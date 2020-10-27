@@ -14,9 +14,9 @@ import {
 } from "../../actions";
 import GardenTile from "./GardenTile";
 
-let col = [];
-let row = [];
 let uniqueKey = 0;
+let col;
+let row;
 
 const Garden = () => {
   const dispatch = useDispatch();
@@ -28,9 +28,10 @@ const Garden = () => {
   useEffect(() => {
     const col_tiles = GARDEN_WIDTH / TILE_SIZE_REPRESENTATION;
     const row_tiles = GARDEN_HEIGHT / TILE_SIZE_REPRESENTATION;
-
-    for (let i = 0; i < col_tiles; i++) col.push(i);
-    for (let i = 0; i < row_tiles; i++) row.push(i);
+     col = [];
+     row = [];
+      for (let i = 0; i < col_tiles; i++) col.push(i);
+      for (let i = 0; i < row_tiles; i++) row.push(i);
   }, []);
 
   let tileIndex = -1;

@@ -25,12 +25,14 @@ const LogOut = () => {
     try {
       const send = await fetch("/user/update-garden", reqObj);
       const res = await send.json();
-      if (res.status === 201) console.log("success");
+      if (res.status === 201) {
+        dispatch(logOutCurrentUser()); 
+        console.log("success");
+        }
     } catch (error) {
       console.log(error);
     }
 
-    await dispatch(logOutCurrentUser());
   };
 
   return (
